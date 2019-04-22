@@ -1,4 +1,10 @@
-import { LOGIN_START, LOGIN_SUCCESS, SIGNUP_START, SIGNUP_SUCCESS, LOGIN_ERROR } from '../Actions/LoginAndSignup';
+import { 
+    LOGIN_START, 
+    LOGIN_SUCCESS, 
+    SIGNUP_START, 
+    SIGNUP_SUCCESS,
+    LOG_OUT
+} from '../Actions/LoginAndSignup';
 
 const initialState = {
     deskData: [],
@@ -6,7 +12,7 @@ const initialState = {
     signingUp: false,
     loggedIn: false,
     error: null,
-    token: localStorage.getItem('jwt')
+    token: localStorage.getItem('key')
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,13 +28,6 @@ const reducer = (state = initialState, action) => {
                 loggingIn: false,
                 token: action.payload
             };
-
-        case LOGIN_ERROR:
-            return {
-                ...state,
-                loggingIn: false,
-                error: action.payload
-            };
         case SIGNUP_START:
             return {
                 ...state,
@@ -39,7 +38,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 signingUp: false
             };
-
+        case LOG_OUT:
+            return {
+              ...state,
+              loggedIn: false,
+              token: null
+            };
         default:
         return state;
     }

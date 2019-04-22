@@ -2,10 +2,10 @@ import React, { Component } from "react";
 
 class QuestionList extends Component {
     render() {
-      return (
-        <p>Questions here</p>
-      );
+        return (
+            <h1>Questions list!</h1>
+        );
     }
-  }
+}
   
-  export default QuestionList;
+export default QuestionList;
