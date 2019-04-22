@@ -22,7 +22,7 @@ class Login extends Component {
   login = e => {
     e.preventDefault();
     this.props.login(this.state.credentials)
-    .then(()=> this.props.history.push('/protected'))
+    .then(()=> this.props.history.push('/questionlist'))
   };
 
   render() {
@@ -39,13 +39,14 @@ class Login extends Component {
           <br />
           <input
             name="password"
-            type="text"
+            type="password"
             placeholder="password"
             value={this.state.credentials.password}
             onChange={this.handleChanges}
           />
           <br />
-          <button>LOG IN</button>
+          {this.props.error && <p className='error'>{this.props.error}</p>}
+          <button type="submit">LOG IN</button>
         </form>
       </div>
     );

@@ -1,29 +1,10 @@
-import React from "react";
-import { Route, Redirect, withRouter } from "react-router-dom";
-import { connect } from 'react-redux'
+import React from 'react'
+import {Route,Redirect} from 'react-router-dom'
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({component:Component, ...rest}) => {
   return (
     <Route
-      {...rest}
-      render={props =>
-        localStorage.getItem("jwt") ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/" />
-        )
-      }
-    />
-  );
-};
-
-const mapStateToProps = ({ token }) => ({
-    token
-});
-
-export default withRouter(
-    connect (
-        mapStateToProps,
-        {}
-    )(PrivateRoute)
-);
+    {...rest} render ={ (props) => localStorage.getItem('key')? <Component {...props}  /> : <Redirect to = '/login'/>} />
+  )
+}
+export default PrivateRoute; 
