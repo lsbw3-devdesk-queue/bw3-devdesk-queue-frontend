@@ -32,7 +32,7 @@ class Signup extends Component {
                 <form onSubmit={this.signup}>
                     <input
                         name="email"
-                        type="email"
+                        type="text"
                         placeholder="email"
                         value={this.state.credentials.email}
                         onChange={this.handleChanges}

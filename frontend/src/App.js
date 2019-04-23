@@ -8,7 +8,6 @@ import QuestionList from './Components/QuestionList';
 import { NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
 import { logOut } from './Actions/LoginAndSignup';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom/cjs/react-router-dom";
 
 
 class App extends Component {
