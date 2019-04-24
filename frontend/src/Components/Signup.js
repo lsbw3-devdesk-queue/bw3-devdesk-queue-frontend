@@ -5,9 +5,10 @@ import { connect } from "react-redux";
 class Signup extends Component {
     state = {
         credentials: {
-            email: "",
-            username: "",
-            password: ""
+            email: '',
+            username: '',
+            password: '',
+            role: ''
         }
     };
 
@@ -48,9 +49,17 @@ class Signup extends Component {
                     <br />
                     <input
                         name="password"
-                        type="text"
+                        type="password"
                         placeholder="password"
                         value={this.state.credentials.password}
+                        onChange={this.handleChanges}
+                    />
+                    <br />
+                    <input
+                        name="role"
+                        type="text"
+                        placeholder="Student or Teacher"
+                        value={this.state.credentials.role}
                         onChange={this.handleChanges}
                     />
                     <br />
