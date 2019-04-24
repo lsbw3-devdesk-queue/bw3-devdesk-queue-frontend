@@ -4,10 +4,10 @@ import "./App.css";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup"
 import PrivateRoute from "./Components/PrivateRoute";
-import QuestionList from './Components/QuestionList';
 import { NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
 import { logOut } from './Actions/LoginAndSignup';
 import { connect } from 'react-redux';
+import QuestionList from "./Components/QuestionList";
 
 
 class App extends Component {
@@ -19,8 +19,8 @@ class App extends Component {
   render() {
 
     let loggedInNav = (
-      <Nav>
-        <NavbarBrand>DevDesk</NavbarBrand>
+      <Nav className='navigation'>
+        <NavbarBrand>DevDesk Que</NavbarBrand>
         <Nav>
           <NavItem>
             <NavLink href='/' onClick={this.logOut}>LOG OUT</NavLink>
@@ -49,7 +49,7 @@ class App extends Component {
           {this.props.token ? (
             <div className='navBar'>{loggedInNav}</div>
           ) : (
-            <div>{loggedOutNav}</div>
+            <div className='navBar'>{loggedOutNav}</div>
           )}
           <Route path="/" exact component={Login} />
           <Route path="/login" exact component={Login} />

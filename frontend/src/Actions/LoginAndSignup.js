@@ -9,10 +9,6 @@ export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_ERROR = "SIGNUP_ERROR";
 export const LOG_OUT = 'LOG_OUT';
 
-///FOR QUESTIONS
-export const ADD_QUESTION = 'ADD_QUESTION';
-export const DELETE_QUESTION = 'DELETE_QUESTION';
-export const ANSWER_QUESTION = 'ANSWER_QUESTION'
 
 //FOR LOGIN
 
@@ -47,28 +43,3 @@ export const logOut = () => {
         type: LOG_OUT
     }
 };
-
-//FOR QUESTIONS
-
-export const addQuestion = topic => {
-    console.log(topic);
-    return {
-        type: ADD_QUESTION,
-        payload: topic
-    }
-}
-
-export const deleteQuestion = id => {
-    console.log('delete question', id);
-    return {
-        type: DELETE_QUESTION,
-        payload: id
-    }
-}
-
-export const answerQuestion = id => {
-    return{
-        type: ANSWER_QUESTION,
-        payload: id
-    }
-}
