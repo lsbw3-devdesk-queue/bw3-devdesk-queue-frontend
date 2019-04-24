@@ -15,7 +15,7 @@ export default class Form extends React.Component {
                 id: null,
                 topic: '',
                 content: '',
-                answered: false
+                answered: ''
             }
         }
     }
@@ -41,7 +41,7 @@ export default class Form extends React.Component {
                 id: null,
                 topic: '',
                 content: '',
-                answered: false
+                answered: ''
             })
         }   
         const question = {
@@ -58,6 +58,7 @@ export default class Form extends React.Component {
             answered: ''
         })       
     }
+    
 
     render() {
         return (
@@ -66,13 +67,13 @@ export default class Form extends React.Component {
                 <input 
                     name = 'question'
                     type = 'text'
-                    value = {this.state.questions}
+                    value = {this.state.answered}
                     placeholder = 'Question'
                     onChange={this.handleInput}
                 />
 
-                <button className='buttonOnForm'>{this.props.questions ? 'save' : 'add'}</button>
-
+                <button className='buttonOnForm'>save</button>
+                
             </form>
         )
     }

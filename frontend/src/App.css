@@ -31,3 +31,44 @@
     transform: rotate(360deg);
   }
 }
+
+.navBar {
+  display: flex;
+  justify-content: space-evenly;
+  color: black;
+  border-bottom: 2px dashed black;
+}
+
+form input{
+  margin: 10px;
+}
+
+form button{
+  width: 100px;
+  background-color: white;
+  border-radius: 1px;
+}
+
+form button:hover{
+  background-color: black;
+  color: white;
+}
+
+.App input{
+  display: flex;
+  margin: 0 auto;
+}
+
+.questionList{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.question{
+  border: 1px solid black;
+  width: 50%;
+  margin: 10px;
+  flex-wrap: wrap;
+}
