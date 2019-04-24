@@ -1,82 +1,96 @@
-import React from 'react';
+import React, { Component } from "react";
 
-export default class Form extends React.Component {
+class Form extends Component {
     constructor(props){
         super(props);
-        if (this.props.question) {
+        if (this.props.ticket) {
             this.state = {
-                id: this.props.question.id,
-                topic: this.props.topic,
-                content: this.props.content,
-                answered: this.props.answered
+                status: this.props.ticket.status,
+                title: this.props.ticket.title,
+                description: this.props.ticket.description,
+                student_id: this.props.ticket.student_id
             }
         } else {
             this.state = {
-                id: null,
-                topic: '',
-                content: '',
-                answered: ''
+                status: '',
+                title: '',
+                description: '',
+                student_id: localStorage.getItem("jwt")
             }
         }
     }
 
-    handleInput = e => {
+    handleInput = event => {
         this.setState({
-            [e.target.name]: e.target.value
+            [event.target.name]: event.target.value
         })
-    };
+    }
 
-    handleSubmit = e => {
-        e.preventDefault();
+    handleSubmit = event => {
+        event.preventDefault();
         if (this.state.id) {
-            const question = {
-                id: this.state.id,
-                topic: this.state.topic,
-                content: this.state.content,
-                answered: this.state.answered
+            const ticket = {
+                status: this.state.status,
+                title: this.state.title,
+                description: this.state.description,
+                student_id: this.state.student_id
             }
 
-            this.props.submit(question);
+            this.props.submit(ticket);
             this.setState({
-                id: null,
-                topic: '',
-                content: '',
-                answered: ''
+                status: '',
+                title: '',
+                description: '',
+                student_id: ''
             })
-        }   
-        const question = {
-            id: this.state.id,
-            topic: this.state.topic,
-            content: this.state.content,
-            answered: this.state.answered
-        }  
-        this.props.submit(question);
+        }
+        const ticket = {
+            status: this.state.status,
+            title: this.state.name,
+            description: this.state.description,
+            student_id: this.state.student_id
+        }
+        this.props.submit(ticket);
         this.setState({
-            id: null,
-            topic: '',
-            content: '',
-            answered: ''
-        })       
+            status: '',
+            title: '',
+            description: '',
+            student_id: ''
+        })
     }
-    
 
     render() {
         return (
-            <form onSubmit = {this.handleSubmit}>
-
+            <form onSubmit={this.handleSubmit}>
                 <input 
-                    name = 'question'
+                    name = 'title'
                     type = 'text'
-                    value = {this.state.answered}
-                    placeholder = 'Question'
+                    value = {this.state.title}
+                    placeholder = 'Title'
                     onChange={this.handleInput}
                 />
 
-                <button className='buttonOnForm'>save</button>
-                
+                <input 
+                    name = 'description'
+                    type = 'text'
+                    value = {this.state.description}
+                    placeholder = 'Description'
+                    onChange={this.handleInput}
+                />
+
+                <input 
+                    name = 'status'
+                    type = 'text'
+                    value = {this.state.status}
+                    placeholder = 'Status'
+                    onChange={this.handleInput}
+                />
+
+                <button>{this.props.ticket ? 'save' : 'add'}</button>
+
             </form>
-        )
+        );
     }
-
-
 }
+
+export default Form;

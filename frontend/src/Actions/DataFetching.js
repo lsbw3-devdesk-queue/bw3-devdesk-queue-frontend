@@ -1,35 +1,39 @@
 import axios from "axios";
 
-export const FETCHING_QUESTIONS = "FETCHING_QUESTIONS";
-export const QUESTION_SUCCESS = "QUESTION_SUCCESS";
+export const FETCHING_TICKETS = "FETCHING_TICKETS";
+export const TICKET_SUCCESS = "TICKETS_SUCCESS";
 export const PASS = 'PASS';
 export const FAIL = 'FAIL';
-export const ADD_QUESTION = 'ADD_QUESTION';
-export const ANSWER_QUESTION = 'ANSWER_QUESTION';
-export const DELETE_QUESTION = 'DELETE_QUESTION';
+export const ADD_TICKET = 'ADD_TICKET';
+export const ANSWER_TICKET = 'ANSWER_TICKET';
+// export const DELETE_TICKET = 'DELETE_TICKET';
 
-const endpoint = "https://devdesk-queue.herokuapp.com/api/auth/questions";
+export const getTickets = () => dispatch => {
+    dispatch({ type: FETCHING_TICKETS });
 
-export const getQuestions = () => dispatch => {
-    dispatch({ type: FETCHING_QUESTIONS });
+    const endpoint = 'https://devdesk-queue.herokuapp.com/api/tickets';
+
     return axios
-        .get(endpoint, { headers: { Authorization: localStorage.getItem("key") } })
+        .get(endpoint, { headers: { Authorization: localStorage.getItem("jwt") }} )
         .then(res =>
             dispatch({
-                type: QUESTION_SUCCESS,
-                payload: res.data.localStorage
+
+                type: TICKET_SUCCESS,
+                payload: res.data
             })
         )
         .catch(err => console.log(err));
 };
 
 
-export const addQuestion = question => dispatch => {
-    dispatch({ type: ADD_QUESTION });
+export const addTicket = ticket => dispatch => {
+    dispatch({ type: ADD_TICKET });
+
+    const endpoint = 'https://devdesk-queue.herokuapp.com/api/tickets'
     return axios
-        .post( endpoint, question )
+        .post( endpoint, { headers: { Authorization: localStorage.getItem("jwt") }}, ticket )
         .then( response => {
-            dispatch({ type: PASS, payload: response.data });
+            dispatch({ type: PASS, payload: response.data.ticket });
         })
         .catch( error => {
             dispatch({ type: FAIL, payload: error });
@@ -37,10 +41,12 @@ export const addQuestion = question => dispatch => {
 
 }
 
-export const answerQuestion = question => dispatch => {
-    dispatch({ type: ANSWER_QUESTION });
+export const answerTicket = ticket => dispatch => {
+    dispatch({ type: ANSWER_TICKET});
+
+    const endpoint = 'https://devdesk-queue.herokuapp.com/api/tickets'
     axios
-        .put( `${endpoint}/ ${question.id}`, question )
+        .put( `${endpoint}/ ${ticket.id}`, ticket )
         .then(response => {
             dispatch({ type: PASS, payload: response.data });
         })
@@ -49,15 +55,15 @@ export const answerQuestion = question => dispatch => {
         })
 }
 
-export const deleteQuestion = question => dispatch => {
-    dispatch({ type: DELETE_QUESTION });
-    return axios
-        .delete( endpoint, question )
-        .then( response => {
-            dispatch({ type: PASS, payload: response.data });
-        })
-        .catch( error => {
-            dispatch({ type: FAIL, payload: error });
-        })
+// export const deleteQuestion = question => dispatch => {
+//     dispatch({ type: DELETE_QUESTION });
+//     return axios
+//         .delete( endpoint, question )
+//         .then( response => {
+//             dispatch({ type: PASS, payload: response.data });
+//         })
+//         .catch( error => {
+//             dispatch({ type: FAIL, payload: error });
+//         })
 
-}
+// }

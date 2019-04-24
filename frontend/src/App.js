@@ -7,7 +7,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 import { NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
 import { logOut } from './Actions/LoginAndSignup';
 import { connect } from 'react-redux';
-import QuestionList from "./Components/QuestionList";
+import TicketApp from "./Components/TicketApp";
 
 
 class App extends Component {
@@ -54,7 +54,7 @@ class App extends Component {
           <Route path="/" exact component={Login} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" component={Signup} />
-          <PrivateRoute path="/questionlist" component={QuestionList}/>
+          <PrivateRoute path="/questionlist" component={TicketApp}/>
         </div>
       </Router>
     );

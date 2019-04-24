@@ -1,29 +1,32 @@
 import { 
     LOGIN_START, 
     LOGIN_SUCCESS, 
+    LOGIN_ERROR,
     SIGNUP_START, 
     SIGNUP_SUCCESS,
+    SIGNUP_ERROR,
     LOG_OUT
 } from '../Actions/LoginAndSignup';
 
 import {
-    FETCHING_QUESTIONS,
-    QUESTION_SUCCESS,
+    FETCHING_TICKETS,
+    TICKET_SUCCESS,
     PASS, 
     FAIL,
-    ADD_QUESTION,
-    DELETE_QUESTION
+    ADD_TICKET,
+    // DELETE_QUESTION
 } from "../Actions/DataFetching";
+import uuidv4 from 'uuid'
 
 const initialState = {
-    questions: [{topic: 'JSX', content: 'how?', answered: 'no'}],
-    fetchingQuestions: true,
+    tickets: [],
+    fetchingTickets: true,
     loggingIn: false,
     signingUp: false,
     loggedIn: false,
     error: null,
     edit: false,
-    token: localStorage.getItem('key')
+    token: localStorage.getItem('jwt')
 };
 
 const reducer = (state = initialState, action) => {
@@ -31,71 +34,87 @@ const reducer = (state = initialState, action) => {
         case LOGIN_START:
             return {
                 ...state,
-                loggingIn: true 
+                error: null,
+                loggingIn: true
             };
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                loggingIn: false,
+                error: null,
                 token: action.payload
+            };
+        case LOGIN_ERROR:
+            return {
+              ...state,
+              loggingIn: false,
+              error: action.payload
             };
         case SIGNUP_START:
             return {
                 ...state,
+                error: null,
                 signingUp: true
             };
         case SIGNUP_SUCCESS:
             return {
                 ...state,
-                signingUp: false
+                error: null,
+                signingUp: false,
+                loggedIn: true,
+                token: uuidv4()
+            };
+        case SIGNUP_ERROR:
+            return {
+              ...state,
+              signingUp: false,
+              error: action.payload
             };
         case LOG_OUT:
             return {
               ...state,
               loggedIn: false,
-              token: null
+              token: uuidv4()
             };
-        case ADD_QUESTION:
-            const newQuestion = {
-                topic: action.payload,
-                id: Date.now(),
-                answered: ''
+        case ADD_TICKET:
+            const newTicket = {
+                loggedIn: true,
+                id: action.payload
             };
             return {
                 ...state,
-                questions: [ ...state.questions, newQuestion ]
+                tickets: [ ...state.tickets, newTicket ]
             };
-        case DELETE_QUESTION:
-            return{
-                ...state,
-                questions: state.questions.filter(
-                    item => !(item.id === action.payload)
-                )
-            };
+        // case DELETE_QUESTION:
+        //     return{
+        //         ...state,
+        //         questions: state.questions.filter(
+        //             item => !(item.id === action.payload)
+        //         )
+        //     };
 
-        case FETCHING_QUESTIONS:
+        case FETCHING_TICKETS:
             return {
                 ...state,
-                fetchingQuestions: true
+                fetchingTickets: true
             };
-        case QUESTION_SUCCESS:
+        case TICKET_SUCCESS:
             return {
                 ...state,
                 loggingIn: false,
-                fetchingQuestions: false,
-                questions: action.payload,
+                fetchingTickets: false,
+                tickets: action.payload,
             };
         case PASS:
             return {
               ...state,
-              fetchingQuestions: false,
-              smurfs: [...action.payload]
+              fetchingTickets: false,
+              tickets: [...action.payload]
             }
         
         case FAIL:
             return {
               ...state,
-              fetchingQuestions: false,
+              fetchingTickets: false,
               error: action.payload
             }
         default:

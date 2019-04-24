@@ -5,8 +5,8 @@ import { login } from "../Actions/LoginAndSignup";
 class Login extends Component {
   state = {
     credentials: {
-      username: "",
-      password: ""
+      username: '',
+      password: '',
     }
   };
 
