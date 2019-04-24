@@ -9,13 +9,16 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import rootReducer from './Reducers'
 import * as serviceWorker from './serviceWorker';
+import { withRouter, BrowserRouter as Router } from 'react-router-dom';
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
+const AppWithRouter = withRouter(App);
+
 ReactDOM.render(
     <Provider store={store}>
-        <App />
-    </Provider>, 
+        <Router><AppWithRouter /></Router>
+    </Provider>,
     document.getElementById('root')
 );
 

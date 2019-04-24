@@ -14,7 +14,7 @@ import {
     PASS, 
     FAIL,
     ADD_TICKET,
-    // DELETE_QUESTION
+    DELETE_TICKET
 } from "../Actions/DataFetching";
 import uuidv4 from 'uuid'
 
@@ -84,13 +84,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 tickets: [ ...state.tickets, newTicket ]
             };
-        // case DELETE_QUESTION:
-        //     return{
-        //         ...state,
-        //         questions: state.questions.filter(
-        //             item => !(item.id === action.payload)
-        //         )
-        //     };
+        case DELETE_TICKET:
+            return{
+                ...state,
+                tickets: state.tickets.filter(
+                    item => !(item.id === action.payload)
+                )
+            };
 
         case FETCHING_TICKETS:
             return {

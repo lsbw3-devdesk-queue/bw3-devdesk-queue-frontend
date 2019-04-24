@@ -18,7 +18,7 @@ export const login = creds => dispatch => {
   return axios
     .post("https://devdesk-queue.herokuapp.com/api/auth/login", creds)
     .then(res => {
-      localStorage.setItem("key", res.data.token);
+      localStorage.setItem("jwt", res.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
 
     })
@@ -31,14 +31,14 @@ export const signup = creds => dispatch => {
   return axios
     .post("https://devdesk-queue.herokuapp.com/api/auth/register", creds)
     .then(res => {
-      localStorage.setItem("key", res.data.token);
-      dispatch({ type: SIGNUP_SUCCESS });
+      localStorage.setItem("jwt", res.data.token);
+      dispatch({ type: SIGNUP_SUCCESS, payload: res.data.token});
     })
     .catch(err => console.log(err));
 };
 
 export const logOut = () => {
-    localStorage.removeItem('key');
+    localStorage.removeItem('jwt');
     return {
         type: LOG_OUT
     }

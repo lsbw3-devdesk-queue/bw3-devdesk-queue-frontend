@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 class Signup extends Component {
     state = {
-        credentials: {
+        authorization: {
             email: '',
             username: '',
             password: '',
@@ -14,8 +14,8 @@ class Signup extends Component {
 
     handleChanges = e => {
         this.setState({
-            credentials: {
-                ...this.state.credentials,
+            authorization: {
+                ...this.state.authorization,
                 [e.target.name]: e.target.value
             }
         });
@@ -23,7 +23,7 @@ class Signup extends Component {
 
     signup = e => {
         e.preventDefault();
-        this.props.signup(this.state.credentials)
+        this.props.signup(this.state.authorization)
         .then(()=> this.props.history.push('/questionlist'))
     };
 
@@ -35,7 +35,7 @@ class Signup extends Component {
                         name="email"
                         type="text"
                         placeholder="email"
-                        value={this.state.credentials.email}
+                        value={this.state.authorization.email}
                         onChange={this.handleChanges}
                     />
                     <br />
@@ -43,7 +43,7 @@ class Signup extends Component {
                         name="username"
                         type="text"
                         placeholder="username"
-                        value={this.state.credentials.username}
+                        value={this.state.authorization.username}
                         onChange={this.handleChanges}
                     />
                     <br />
@@ -51,15 +51,15 @@ class Signup extends Component {
                         name="password"
                         type="password"
                         placeholder="password"
-                        value={this.state.credentials.password}
+                        value={this.state.authorization.password}
                         onChange={this.handleChanges}
                     />
                     <br />
                     <input
                         name="role"
                         type="text"
-                        placeholder="Student or Teacher"
-                        value={this.state.credentials.role}
+                        placeholder="Student or Helper"
+                        value={this.state.authorization.role}
                         onChange={this.handleChanges}
                     />
                     <br />

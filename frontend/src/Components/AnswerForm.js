@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Form extends Component {
+class AnswerForm extends Component {
     constructor(props){
         super(props);
         if (this.props.ticket) {
@@ -28,15 +28,29 @@ class Form extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        
+        if (this.state.id) {
+            const ticket = {
+                status: this.state.status,
+                title: this.state.title,
+                description: this.state.description,
+                id: this.state.id
+            }
+
+            this.props.submit(ticket);
+            this.setState({
+                status: '',
+                title: '',
+                description: '',
+                id: ''
+            })
+        }
         const ticket = {
             status: this.state.status,
-            title: this.state.title,
+            title: this.state.name,
             description: this.state.description,
-            id: this.state.id
+            id: this.state.student_id
         }
-
-        this.props.addTicket(ticket);
+        this.props.submit(ticket);
         this.setState({
             status: '',
             title: '',
@@ -48,21 +62,6 @@ class Form extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <input 
-                    name = 'title'
-                    type = 'text'
-                    value = {this.state.title}
-                    placeholder = 'Title'
-                    onChange={this.handleInput}
-                />
-
-                <input 
-                    name = 'description'
-                    type = 'text'
-                    value = {this.state.description}
-                    placeholder = 'Description'
-                    onChange={this.handleInput}
-                />
 
                 <input 
                     name = 'status'
@@ -79,4 +78,4 @@ class Form extends Component {
     }
 }
 
-export default Form;
+export default AnswerForm;

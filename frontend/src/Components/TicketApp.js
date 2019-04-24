@@ -18,16 +18,17 @@ class TicketApp extends Component {
         });
     };
 
-    // deleteQuestion = id => {
-    //     this.props.deleteQuestion(id);
-    // }
-
     render() {
+
+        if(localStorage.token === false){
+            this.props.history.push('/');
+        }
+
         return (
             
             <>
 
-                <Form submit={this.props.addTicket}/>
+                <Form addTicket={this.props.addTicket}/>
 
                 <TicketList/>
 
