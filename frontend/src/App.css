@@ -1,12 +1,7 @@
 .App {
   text-align: center;
-  margin: 0 auto;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+  background-color: rgb(224, 223, 223);
+  border-bottom: 2px dashed black;
 }
 
 .App-header {
@@ -24,35 +19,38 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 .navBar {
   display: flex;
   justify-content: space-evenly;
-  color: black;
   border-bottom: 2px dashed black;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  background-color: white;
 }
 
-form input{
+.form{
   margin: 10px;
 }
 
+form input{
+  border-radius: 5px;
+  border: 1px solid rgb(211, 211, 211);
+  padding: 5px;
+}
+
 form button{
-  width: 100px;
+  width: 80px;
   background-color: white;
   border-radius: 1px;
+  margin: 10px;
+  border-radius: 10px;
 }
 
 form button:hover{
-  background-color: black;
+  background-color: rgb(86, 153, 86);
   color: white;
+  transition: .5s;
 }
 
 .App input{
@@ -60,20 +58,21 @@ form button:hover{
   margin: 0 auto;
 }
 
-.questionList{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 50%;
+.questionList div{
+  width: 90%;
   margin: 0 auto;
-  border-radius: 10px;
+  flex-wrap: wrap;
+  border-radius: 40px;
+  margin-bottom: 20px;
 }
 
-.questionList div{
-  width: 100%;
-  margin: 10px;
-  flex-wrap: wrap;
+.App form{
+  background-color: white;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+  border-radius: 30px;
+  padding: 10px;
 }
 
 .ticket{
@@ -86,8 +85,67 @@ form button:hover{
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  width: 80%;
+  width: 50%;
   margin: 0 auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 
+.questionList button:hover{
+  background-color: black;
+  color: white;
+  transition: .5s;
+}
+
+form.login{
+  border-radius: 20px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+form.signup{
+  border-radius: 20px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+form.add{
+  margin-bottom: 20px;
+}
+
+form.answer{
+  background-color: rgb(224, 223, 223);
+}
+
+form.answer button:hover{
+  background-color: rgb(86, 153, 86);
+}
+
+form.answer button{
+  margin-bottom: 0px;
+}
+
+.edit{
+  margin-top: 10px;
+}
+
+a.logout.nav-link{
+  color: black;
+  background-color: rgba(255, 0, 0, 0.541);
+  border-radius: 10px;
+}
+
+ul.navigation.nav{
+  width: 100%;
+  justify-content: space-around;
+}
+
+ul.navi{
+  width: 90%;
+  justify-content: space-between;
+}
+
+ul.gation{
+
+}
