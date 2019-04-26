@@ -15,7 +15,7 @@ class AnswerForm extends Component {
                 status: '',
                 title: '',
                 description: '',
-                id: localStorage.getItem("jwt")
+                id: ''
             }
         }
     }
@@ -43,20 +43,22 @@ class AnswerForm extends Component {
                 description: '',
                 id: ''
             })
+        } else {
+            alert('handleSubmit failed')
         }
-        const ticket = {
-            status: this.state.status,
-            title: this.state.name,
-            description: this.state.description,
-            id: this.state.student_id
-        }
-        this.props.submit(ticket);
-        this.setState({
-            status: '',
-            title: '',
-            description: '',
-            id: ''
-        })
+        // const ticket = {
+        //     status: this.state.status,
+        //     title: this.state.title,
+        //     description: this.state.description,
+        //     id: this.state.id
+        // }
+        // this.props.submit(ticket);
+        // this.setState({
+        //     status: '',
+        //     title: '',
+        //     description: '',
+        //     id: ''
+        // })
     }
 
     render() {
