@@ -33,7 +33,7 @@ class Signup extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.signup}>
+                <form onSubmit={this.signup} className='signup'>
                     <input
                         name="email"
                         type="text"

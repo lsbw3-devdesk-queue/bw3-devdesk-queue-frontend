@@ -35,10 +35,10 @@ class Ticket extends React.Component {
       <div>
         <Card >
           <CardBody className='ticket'>
-            <h3>{this.props.ticket.categories}</h3>
+            <h3>Topic: {this.props.ticket.categories}</h3>
             <h3>{this.props.ticket.title}</h3>
             <h3>{this.props.ticket.description}</h3>
-            <p>{this.props.ticket.status}</p>
+            <p>Status: {this.props.ticket.status}</p>
           </CardBody>
           {this.state.edit && <AnswerForm ticket={ this.props.ticket } submit={ newTicket => this.submitTicket( newTicket )}/>}
           <button 

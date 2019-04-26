@@ -29,7 +29,7 @@ class Login extends Component {
     console.log(this.props);
     return (
       <div>
-        <form onSubmit={this.login}>
+        <form onSubmit={this.login} className='login'>
           <input
             name="username"
             type="text"

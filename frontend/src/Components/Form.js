@@ -47,7 +47,7 @@ class Form extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} className='add'>
                 <input 
                     name = 'title'
                     type = 'text'

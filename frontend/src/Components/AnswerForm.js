@@ -63,7 +63,7 @@ class AnswerForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} className='answer'>
 
                 <input 
                     name = 'status'

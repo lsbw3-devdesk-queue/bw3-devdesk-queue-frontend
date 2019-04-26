@@ -22,16 +22,16 @@ class App extends Component {
         <NavbarBrand>DevDesk Que</NavbarBrand>
         <Nav>
           <NavItem>
-            <div onClick={this.logOut}>LOG OUT</div>
+            <NavLink onClick={this.logOut} className='logout'>LOG OUT</NavLink>
           </NavItem>
         </Nav>
       </Nav>
     );
 
     let loggedOutNav = (
-      <Nav>
+      <Nav className='navi'>
         <NavbarBrand>DevDesk</NavbarBrand>
-        <Nav>
+        <Nav className='gation'>
           <NavItem>
             <NavLink href='/'>LOG IN</NavLink>
           </NavItem>
