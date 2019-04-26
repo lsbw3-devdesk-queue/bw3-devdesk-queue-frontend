@@ -5,7 +5,10 @@ import {
     SIGNUP_START, 
     SIGNUP_SUCCESS,
     SIGNUP_ERROR,
-    LOG_OUT
+    LOG_OUT,
+    USER_INFO_START,
+    USER_INFO_SUCCESS,
+    USER_INFO_ERROR,
 } from '../Actions/LoginAndSignup';
 
 import {
@@ -14,20 +17,35 @@ import {
     PASS, 
     FAIL,
     ADD_TICKET,
-    // DELETE_QUESTION
+    DELETE_TICKET
 } from "../Actions/DataFetching";
 import uuidv4 from 'uuid'
 
 const initialState = {
     tickets: [],
+    user: { username: '', role: '', id: '' },
     fetchingTickets: true,
     loggingIn: false,
+    usersFetched: false,
     signingUp: false,
     loggedIn: false,
     error: null,
     edit: false,
-    token: localStorage.getItem('jwt')
+    token: localStorage.getItem('jwt'),
 };
+
+const defaultState = {
+    tickets: [],
+    user: { username: '', role: '', id: '' },
+    fetchingTickets: true,
+    loggingIn: false,
+    usersFetched: false,
+    signingUp: false,
+    loggedIn: false,
+    error: null,
+    edit: false,
+    token: localStorage.getItem('jwt'),
+}
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -35,13 +53,17 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: null,
-                loggingIn: true
+                loggingIn: true,
+                loggedIn: false
             };
         case LOGIN_SUCCESS:
             return {
                 ...state,
                 error: null,
-                token: action.payload
+                loggingIn: false,
+                loggedIn: true,
+                token: action.payload.token,
+                user: { ...state.user, username: action.payload.username }
             };
         case LOGIN_ERROR:
             return {
@@ -55,6 +77,33 @@ const reducer = (state = initialState, action) => {
                 error: null,
                 signingUp: true
             };
+        case USER_INFO_START:
+            return{
+                ...state,
+                error: null,
+                usersFetched: false,
+            }
+        case USER_INFO_ERROR:
+            return {
+                ...state,
+                error: action.payload
+            } 
+        case USER_INFO_SUCCESS:
+            console.log(action.payload)
+            const userData = action.payload.data.filter( user => user.username == 'testing' )[0]
+            console.log(userData, 'userData');
+            // console.log(state.user.username, 'username')
+            console.log(action.payload.data)
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    username: userData.username,
+                    role: userData.role,
+                    id: userData.id
+                }, 
+                usersFetched: true,
+            }
         case SIGNUP_SUCCESS:
             return {
                 ...state,
@@ -70,11 +119,8 @@ const reducer = (state = initialState, action) => {
               error: action.payload
             };
         case LOG_OUT:
-            return {
-              ...state,
-              loggedIn: false,
-              token: uuidv4()
-            };
+            return defaultState;
+
         case ADD_TICKET:
             const newTicket = {
                 loggedIn: true,
@@ -84,13 +130,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 tickets: [ ...state.tickets, newTicket ]
             };
-        // case DELETE_QUESTION:
-        //     return{
-        //         ...state,
-        //         questions: state.questions.filter(
-        //             item => !(item.id === action.payload)
-        //         )
-        //     };
+        case DELETE_TICKET:
+            return{
+                ...state,
+                tickets: state.tickets.filter(
+                    item => !(item.id === action.payload)
+                )
+            };
 
         case FETCHING_TICKETS:
             return {
@@ -103,12 +149,24 @@ const reducer = (state = initialState, action) => {
                 loggingIn: false,
                 fetchingTickets: false,
                 tickets: action.payload,
+                usersFetched: false,
             };
         case PASS:
+            let updatedTickets = [
+                ...state.tickets,
+            ]
+            updatedTickets.forEach( ticket => { 
+                if ( ticket.id === action.payload.id ){
+                    ticket.helper_id = action.payload.helper_id;
+                    ticket.status = action.payload.status;
+                    ticket.updated_at = action.payload.updated_at;
+                    // break;
+                }
+             } )
             return {
               ...state,
               fetchingTickets: false,
-              tickets: [...action.payload]
+              tickets: [ ...updatedTickets ]
             }
         
         case FAIL:

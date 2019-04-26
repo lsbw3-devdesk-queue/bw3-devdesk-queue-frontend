@@ -22,10 +22,11 @@ class Login extends Component {
   login = e => {
     e.preventDefault();
     this.props.login(this.state.credentials)
-    .then(()=> this.props.history.push('/questionlist'))
+    this.props.history.push('/questionlist')
   };
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <form onSubmit={this.login}>

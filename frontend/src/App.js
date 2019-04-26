@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup"
-import PrivateRoute from "./Components/PrivateRoute";
 import { NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
 import { logOut } from './Actions/LoginAndSignup';
 import { connect } from 'react-redux';
@@ -14,16 +13,16 @@ class App extends Component {
   logOut = e => {
     e.preventDefault();
     this.props.logOut();
+    this.props.history.push('/');
   };
 
   render() {
-
     let loggedInNav = (
       <Nav className='navigation'>
         <NavbarBrand>DevDesk Que</NavbarBrand>
         <Nav>
           <NavItem>
-            <NavLink href='/' onClick={this.logOut}>LOG OUT</NavLink>
+            <div onClick={this.logOut}>LOG OUT</div>
           </NavItem>
         </Nav>
       </Nav>
@@ -34,7 +33,7 @@ class App extends Component {
         <NavbarBrand>DevDesk</NavbarBrand>
         <Nav>
           <NavItem>
-            <NavLink href='/login'>LOG IN</NavLink>
+            <NavLink href='/'>LOG IN</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href='/signup'>SIGN UP</NavLink>
@@ -44,26 +43,23 @@ class App extends Component {
     );
 
     return (
-      <Router>
         <div className="App">
-          {this.props.token ? (
+          {localStorage.jwt ? (
             <div className='navBar'>{loggedInNav}</div>
           ) : (
             <div className='navBar'>{loggedOutNav}</div>
           )}
           <Route path="/" exact component={Login} />
-          <Route path="/login" exact component={Login} />
           <Route path="/signup" component={Signup} />
-          <PrivateRoute path="/questionlist" component={TicketApp}/>
+          <Route path="/questionlist" component={TicketApp}/>
         </div>
-      </Router>
     );
   }
 }
 
 const mapStateToProps = state => ({
   loggedIn: state.loggedIn,
-  token: state.token
+  token: state.token,
 });
 
 export default connect(

@@ -6,7 +6,7 @@ export const PASS = 'PASS';
 export const FAIL = 'FAIL';
 export const ADD_TICKET = 'ADD_TICKET';
 export const ANSWER_TICKET = 'ANSWER_TICKET';
-// export const DELETE_TICKET = 'DELETE_TICKET';
+export const DELETE_TICKET = 'DELETE_TICKET';
 
 export const getTickets = () => dispatch => {
     dispatch({ type: FETCHING_TICKETS });
@@ -26,14 +26,14 @@ export const getTickets = () => dispatch => {
 };
 
 
-export const addTicket = ticket => dispatch => {
+export const addTicket = () => dispatch => {
     dispatch({ type: ADD_TICKET });
 
     const endpoint = 'https://devdesk-queue.herokuapp.com/api/tickets'
     return axios
-        .post( endpoint, { headers: { Authorization: localStorage.getItem("jwt") }}, ticket )
+        .post( endpoint, { headers: { Authorization: localStorage.getItem("jwt")}} )
         .then( response => {
-            dispatch({ type: PASS, payload: response.data.ticket });
+            dispatch({ type: PASS, payload: response.data.token });
         })
         .catch( error => {
             dispatch({ type: FAIL, payload: error });
@@ -41,29 +41,36 @@ export const addTicket = ticket => dispatch => {
 
 }
 
-export const answerTicket = ticket => dispatch => {
+export const answerTicket = (ticket, userRole, id) => dispatch => {
     dispatch({ type: ANSWER_TICKET});
 
-    const endpoint = 'https://devdesk-queue.herokuapp.com/api/tickets'
+    console.log( ticket, 'ticket' )
+    console.log(userRole, 'role')
+    console.log(id, 'id')
+
+    const endpoint = `https://devdesk-queue.herokuapp.com/api/tickets/${id}`
     axios
-        .put( `${endpoint}/ ${ticket.id}`, ticket )
+        .put( endpoint, ticket, { headers: { Authorization: localStorage.getItem("jwt") , role: userRole }}  )
+        // .put( endpoint, ticket, { headers: { Authorization: localStorage.getItem("jwt") }}  )
         .then(response => {
             dispatch({ type: PASS, payload: response.data });
         })
         .catch( error => {
-            dispatch({ type: FAIL, payload: error });
+            dispatch({ type: FAIL, payload: error.message });
         })
 }
 
-// export const deleteQuestion = question => dispatch => {
-//     dispatch({ type: DELETE_QUESTION });
-//     return axios
-//         .delete( endpoint, question )
-//         .then( response => {
-//             dispatch({ type: PASS, payload: response.data });
-//         })
-//         .catch( error => {
-//             dispatch({ type: FAIL, payload: error });
-//         })
+export const deleteTicket = (ticket, id) => dispatch => {
+    dispatch({ type: DELETE_TICKET });
 
-// }
+    const endpoint = `https://devdesk-queue.herokuapp.com/api/tickets/${id}`
+    return axios
+        .delete( endpoint, ticket, { headers: { Authorization: localStorage.getItem("jwt")}} )
+        .then( response => {
+            dispatch({ type: PASS, payload: response.data.token });
+        })
+        .catch( error => {
+            dispatch({ type: FAIL, payload: error });
+        })
+
+}

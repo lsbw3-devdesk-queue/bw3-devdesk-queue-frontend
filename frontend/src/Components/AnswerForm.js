@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Form extends Component {
+class AnswerForm extends Component {
     constructor(props){
         super(props);
         if (this.props.ticket) {
@@ -15,7 +15,7 @@ class Form extends Component {
                 status: '',
                 title: '',
                 description: '',
-                id: localStorage.getItem("jwt")
+                id: ''
             }
         }
     }
@@ -28,41 +28,42 @@ class Form extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        
-        const ticket = {
-            status: this.state.status,
-            title: this.state.title,
-            description: this.state.description,
-            id: this.state.id
-        }
+        if (this.state.id) {
+            const ticket = {
+                status: this.state.status,
+                title: this.state.title,
+                description: this.state.description,
+                id: this.state.id
+            }
 
-        this.props.addTicket(ticket);
-        this.setState({
-            status: '',
-            title: '',
-            description: '',
-            id: ''
-        })
+            this.props.submit(ticket);
+            this.setState({
+                status: '',
+                title: '',
+                description: '',
+                id: ''
+            })
+        } else {
+            alert('handleSubmit failed')
+        }
+        // const ticket = {
+        //     status: this.state.status,
+        //     title: this.state.title,
+        //     description: this.state.description,
+        //     id: this.state.id
+        // }
+        // this.props.submit(ticket);
+        // this.setState({
+        //     status: '',
+        //     title: '',
+        //     description: '',
+        //     id: ''
+        // })
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <input 
-                    name = 'title'
-                    type = 'text'
-                    value = {this.state.title}
-                    placeholder = 'Title'
-                    onChange={this.handleInput}
-                />
-
-                <input 
-                    name = 'description'
-                    type = 'text'
-                    value = {this.state.description}
-                    placeholder = 'Description'
-                    onChange={this.handleInput}
-                />
 
                 <input 
                     name = 'status'
@@ -79,4 +80,4 @@ class Form extends Component {
     }
 }
 
-export default Form;
+export default AnswerForm;

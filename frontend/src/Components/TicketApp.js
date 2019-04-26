@@ -3,6 +3,7 @@ import { addTicket } from '../Actions/DataFetching';
 import { connect } from 'react-redux';
 import Form from "./Form";
 import TicketList from "./TicketList";
+// import { userInfo } from '../Actions/LoginAndSignup';
 
 class TicketApp extends Component {
     state = {
@@ -18,25 +19,28 @@ class TicketApp extends Component {
         });
     };
 
-    // deleteQuestion = id => {
-    //     this.props.deleteQuestion(id);
-    // }
-
     render() {
+
+        if(localStorage.token === false){
+            this.props.history.push('/');
+        }
+
         return (
-            
             <>
-
-                <Form submit={this.props.addTicket}/>
-
+                <Form addTicket={this.props.addTicket}/>
                 <TicketList/>
-
             </>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        loggingIn: state.loggingIn
+    }
+}
   
 export default connect(
-    null,
+    mapStateToProps,
     { addTicket }
-)(TicketApp);
+)   (TicketApp);

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin: 0 auto;
 }
 
 .App-logo {
@@ -64,11 +65,29 @@ form button:hover{
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 10px;
 }
 
-.question{
-  border: 1px solid black;
-  width: 50%;
+.questionList div{
+  width: 100%;
   margin: 10px;
   flex-wrap: wrap;
 }
+
+.ticket{
+  margin: 0 auto;
+  width: 100%;
+}
+
+.questionList button{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+
