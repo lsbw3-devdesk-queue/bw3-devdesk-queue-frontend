@@ -41,17 +41,22 @@ export const addTicket = () => dispatch => {
 
 }
 
-export const answerTicket = (ticket, role, id) => dispatch => {
+export const answerTicket = (ticket, userRole, id) => dispatch => {
     dispatch({ type: ANSWER_TICKET});
+
+    console.log( ticket, 'ticket' )
+    console.log(userRole, 'role')
+    console.log(id, 'id')
 
     const endpoint = `https://devdesk-queue.herokuapp.com/api/tickets/${id}`
     axios
-        .put( endpoint, ticket, { headers: { Authorization: localStorage.getItem("jwt"), role: role }}   )
+        .put( endpoint, ticket, { headers: { Authorization: localStorage.getItem("jwt") , role: userRole }}  )
+        // .put( endpoint, ticket, { headers: { Authorization: localStorage.getItem("jwt") }}  )
         .then(response => {
-            dispatch({ type: PASS, payload: response.data.token });
+            dispatch({ type: PASS, payload: response.data });
         })
         .catch( error => {
-            dispatch({ type: FAIL, payload: error });
+            dispatch({ type: FAIL, payload: error.message });
         })
 }
 

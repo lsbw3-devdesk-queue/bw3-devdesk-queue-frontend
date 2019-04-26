@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup"
-import PrivateRoute from "./Components/PrivateRoute";
 import { NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
-import { logOut, login } from './Actions/LoginAndSignup';
+import { logOut } from './Actions/LoginAndSignup';
 import { connect } from 'react-redux';
 import TicketApp from "./Components/TicketApp";
 
@@ -34,7 +33,7 @@ class App extends Component {
         <NavbarBrand>DevDesk</NavbarBrand>
         <Nav>
           <NavItem>
-            <NavLink href='/login'>LOG IN</NavLink>
+            <NavLink href='/'>LOG IN</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href='/signup'>SIGN UP</NavLink>
@@ -45,7 +44,7 @@ class App extends Component {
 
     return (
         <div className="App">
-          {localStorage.token ? (
+          {localStorage.jwt ? (
             <div className='navBar'>{loggedInNav}</div>
           ) : (
             <div className='navBar'>{loggedOutNav}</div>
@@ -60,7 +59,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   loggedIn: state.loggedIn,
-  token: state.token
+  token: state.token,
 });
 
 export default connect(

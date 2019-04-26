@@ -3,6 +3,7 @@ import { addTicket } from '../Actions/DataFetching';
 import { connect } from 'react-redux';
 import Form from "./Form";
 import TicketList from "./TicketList";
+// import { userInfo } from '../Actions/LoginAndSignup';
 
 class TicketApp extends Component {
     state = {
@@ -25,19 +26,21 @@ class TicketApp extends Component {
         }
 
         return (
-            
             <>
-
                 <Form addTicket={this.props.addTicket}/>
-
                 <TicketList/>
-
             </>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        loggingIn: state.loggingIn
+    }
+}
   
 export default connect(
-    null,
+    mapStateToProps,
     { addTicket }
-)(TicketApp);
+)   (TicketApp);

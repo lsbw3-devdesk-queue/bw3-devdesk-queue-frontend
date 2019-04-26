@@ -15,27 +15,32 @@ class Ticket extends React.Component {
     }
   }
 
+  submitTicket = ( newTicket ) => {
+    this.props.answerTicket( newTicket, this.props.userData.role,  this.props.ticket.id);
+    // this.toggleEdit();
+  }
+
   toggleEdit = () => {
     this.setState( originalState => ({
-        edit: !originalState.edit
-    }))
+      edit: !originalState.edit
+    }));
   }
 
   deleteTicket = id => {
     this.props.deleteTicket(this.props.ticket.id);
   }
   render() {
-    console.log(this.props.ticket.id);
+    console.log(this.props.userData, 'userData');
     return (
       <div>
         <Card >
-          <CardBody>
+          <CardBody className='ticket'>
             <h3>{this.props.ticket.categories}</h3>
             <h3>{this.props.ticket.title}</h3>
             <h3>{this.props.ticket.description}</h3>
             <p>{this.props.ticket.status}</p>
           </CardBody>
-          {this.state.edit && <AnswerForm ticket={this.props.id} submit={ () => this.props.answerTicket()}/>}
+          {this.state.edit && <AnswerForm ticket={ this.props.ticket } submit={ newTicket => this.submitTicket( newTicket )}/>}
           <button 
             className='edit' 
             onClick={this.toggleEdit}
@@ -45,12 +50,14 @@ class Ticket extends React.Component {
       </div>
     );
   }
-
 };
 
 const mapStateToProps = state => {
   return {
-    edit: state.editing
+    // edit: state.editing,
+    // role: state.user.role,
+    userData: state.user
+
   }
 }
 

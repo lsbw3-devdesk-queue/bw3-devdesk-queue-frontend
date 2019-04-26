@@ -24,7 +24,10 @@ class Signup extends Component {
     signup = e => {
         e.preventDefault();
         this.props.signup(this.state.authorization)
-        .then(()=> this.props.history.push('/questionlist'))
+        alert('Registration Successful')
+        this.props.history.push('/')
+        // setTimeout(()=> this.props.history.push('/'), 3000 )
+
     };
 
     render() {
